@@ -1,0 +1,17 @@
+name: PR
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  business_hours:
+    runs-on: ubuntu
+    steps:
+      - run: |
+        currenttime=$(TZ=America/Los_Angeles date +%H:%M) \
+        [[ "$currenttime" > "08:59" && "$currenttime" < "17:01" ]]
+      - run: echo "Complete"
+
