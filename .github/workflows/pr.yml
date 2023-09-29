@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   business_hours:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.event_name}}
       - name: Time check
