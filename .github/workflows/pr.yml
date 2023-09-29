@@ -1,0 +1,26 @@
+name: PR
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      chart_version:
+        required: true
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  business_hours:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.event_name}}
+      - name: Time check
+        if: github.event_name != 'workflow_dispatch'
+        run: |
+          currenttime=$(TZ=America/Los_Angeles date +%H:%M)
+          echo "$currenttime"
+          [[ "$currenttime" > "08:59" && "$currenttime" < "17:01" ]]
+      - run: echo "Complete"
+
