@@ -17,7 +17,7 @@ jobs:
     steps:
       - run: echo ${{ github.event_name}}
       - name: Time check
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'workflow_dispatch'
         run: |
           currenttime=$(TZ=America/Los_Angeles date +%H:%M)
           echo "$currenttime"
